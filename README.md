@@ -1,7 +1,5 @@
 # Documentação
 
-Status: In progress
-
 # Tecnologias
 
 - PHP - 7.3
@@ -35,7 +33,7 @@ OBS: Não foi criado a parte de SESSION para cada usuário criado.
 
 Validado por e-mail e senha
 
-![Untitled](Documentac%CC%A7a%CC%83o%20a9a48128914241928c9228073db7bb68/Untitled.png)
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8c89ee31-a9de-47e4-8ca8-af9eae98f735/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220607%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220607T160225Z&X-Amz-Expires=86400&X-Amz-Signature=c9ebb47eb7211d8b77d3d870f0632790ac00b82abd24e81d93ac11f527ed4d84&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 Cadastro 
 
