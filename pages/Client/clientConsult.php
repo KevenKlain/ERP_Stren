@@ -1,5 +1,7 @@
 
 <?php
+
+
 	$aux_consulta = "
 	<style>
 		body {
@@ -28,7 +30,6 @@
 			font-weight: bold;
 			padding: 10px;
 			text-align: left;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#id_item {
@@ -38,7 +39,6 @@
 		table tbody td {
 			background: white;
 			padding: 15px;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#button {
@@ -72,46 +72,54 @@
 
 		  #fields {
 			display: flex;
+			
 		  }
 
 		  #message {
 			margin: 0px 100px;
 		  }
+		  
+		  #transaction {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+	      }
 	</style>
 	";
 
 	$aux_consulta .= "
 		<script src=https://kit.fontawesome.com/88ebab1f4a.js crossorigin='anonymous'></script>	
-		</form>
-		</div>
-		<div id='fields'>
-			<button
-				id='button'
-				class='btn btn-success' 
-				onclick=\"location.href='?page=clientRegister';\">
-				<i class='fa-solid fa-circle-plus'></i>
-					Novo
-			</button>
-
-			<div class='submit-line'>
-				<form action='?page=clientConsult' method='POST' class='form-inline my-2 my-lg-0'>
-				<input type='text' name='pesquisa' class='form-control' placeholder='Nome do Cliente'/>
-				<button class='submit-lente' type='submit'>
-					<i class='fa fa-search'></i>
+		
+			<div id='fields'>
+				<button
+					id='button'
+					class='btn btn-success' 
+					onclick=\"location.href='?page=clientRegister';\">
+					<i class='fa-solid fa-circle-plus'></i>
+						Novo
 				</button>
+
+				<div class='submit-line'>
+					<form action='?page=clientConsult' method='POST' class='form-inline my-2 my-lg-0'>
+					<input type='text' name='pesquisa' class='form-control' placeholder='Nome do Cliente'/>
+					<button class='submit-lente' type='submit'>
+						<i class='fa fa-search'></i>
+					</button>
+				</div>
 			</div>
-		</div>
-		<table id='data-table'>
-			<thead>
-				<tr>
-					<th></th>
-					<th id='id_item'>Nr. Cliente</th>
-					<th>Cliente</th>
-					<th>CPF/CNPJ</th>
-					<th>Região</th>
-				</tr>
-			</thead>
-			<tbody>";
+			<section id='transaction'>
+			<table id='data-table'>
+				<thead>
+					<tr>
+						<th></th>
+						<th id='id_item'>Nr. Cliente</th>
+						<th>Cliente</th>
+						<th>CPF/CNPJ</th>
+						<th>Região</th>
+					</tr>
+					
+				</thead>
+				<tbody>";
 	
 	if(@$_REQUEST["pesquisa"]){
 		//$sql = "SELECT * FROM concessionaria  WHERE id_concessionaria = '".$_REQUEST['pesquisa']."'";
@@ -149,25 +157,25 @@
 		while($row = pg_fetch_array($result)){
 
 			$aux_consulta .= "
-				<tr>
-					<td width='10px' align=center>
-						<i  class='fa-solid fa-pencil'
-							onclick=\"location.href='?page=clientEdit&id_cliente=".$row['id_cliente']."';\"
-						></i>
-					</td> 
+					<tr>
+						<td width='10px' align=center>
+							<i  class='fa-solid fa-pencil'
+								onclick=\"location.href='?page=clientEdit&id_cliente=".$row['id_cliente']."';\"
+							></i>
+						</td> 
 
-					<td width='80px' align=center>".str_pad($row['id_cliente'], 6, 0, STR_PAD_LEFT)."</td>
+						<td width='80px' align=center>".str_pad($row['id_cliente'], 6, 0, STR_PAD_LEFT)."</td>
 
-					<td width='400px'>".$row['nm_cliente']."</td>
+						<td width='250px'>".$row['nm_cliente']."</td>
 
-					<td width='80px' align=center'>".$row['cpf_cnpj']."</td>
-					<td width='80px' align=center'>".$row['nm_regiao']."</td>
-				</tr>
-			";
+						<td width='80px' align=center'>".$row['cpf_cnpj']."</td>
+						<td width='80px' align=center'>".$row['nm_regiao']."</td>
+					</tr>";
 		}
 		$aux_consulta .="
-				</tbody>
-			</table>";
+					</tbody>
+				</table>
+			</section>";
 	}
 			
 	$aux_saldos = str_replace(array(chr(10), chr(13)), array('',''),$aux_consulta);

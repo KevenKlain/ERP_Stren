@@ -1,97 +1,109 @@
+<?php 
+	require_once 'classes/usuarios.php';
+	$u = new usuario;
+?>
+
 <!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="./src/css/bootstrap.min.css">
-        <title>Stren</title>
-        <script src="https://use.fontawesome.com/e506c26381.js"></script>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script src="jquery-3.4.1.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
+	<style>
+		body{
+			background-color: #343A40; 
+			padding-top: 10px;
+			background-position-x: 0;
+			background-position-y: 0;
+			background-repeat: no-repeat;
+		}
 
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <img src="./src/img/logo.png" width=100 height=49>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="?page=saleConsult">Pedido</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="?page=productConsult">Produto</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="?page=clientConsult">Cliente</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mt-5">
-                    <?php
-                        include("./src/config/config.php");
+		h1{
+			color:white;
+		}
 
-                        switch (@$_REQUEST["page"]) {
-                            //concessionaria
-                            case 'productConsult':
-                              include("./pages/Product/productConsult.php");
-                            break;
-                            case 'productRegister':
-                              include("./pages/Product/productRegister.php");
-                            break;
-                            case 'productEdit':
-                              include("./pages/Product/productEdit.php");
-                            break;
-                            case 'productSave':
-                              include("./pages/Product/productSave.php");
-                            break;
-                            
-                            //cliente
-                            case 'clientRegister':
-                              include("./pages/Client/clientRegister.php");
-                            break;
-                            case 'clientConsult':
-                              include("./pages/Client/clientConsult.php");
-                            break;
-                            case 'clientEdit':
-                              include("./pages/Client/clientEdit.php");
-                            break;
-                            case 'clientSave':
-                              include("./pages/Client/clientSave.php");
-                            break;
-                            
-                            //sale
-                            case 'saleRegister':
-                              include("./pages/Sale/saleRegister.php");
-                            break;
-                            case 'saleConsult':
-                              include("./pages/Sale/saleConsult.php");
-                            break;
-                            case 'saleEdit':
-                              include("./pages/Sale/saleEdit.php");
-                            break;
-                            case 'saleSave':
-                              include("./pages/Sale/saleSave.php");
-                            break;
-                            
+	</style>
 
 
-                             
-                            default:
-                               include("main.php");
-                        }   
-                    ?>
-                </div>
-            </div>
-        </div>
+<div class="btn-group btn-group-lg btn-group-justified">
+		<a href="index.php" class="btn btn-success">
+		  <span class="glyphicon glyphicon-user"></span> Login
+		</a>
+		<a href="cadastrar.php" class="btn btn-success">
+		  <span class="glyphicon glyphicon-user"></span> Cadastrar
+		</a>
+</div>
 
+</head>
+<body>
+	<div id="corpo-form">
+	<h1><img src="ima/logo.png" width=100 height=49></h1>
+	<form method="post">
+		<input type="email" placeholder="Email" name="email">
+		<br>
+		<input type="password" placeholder="senha" name="senha">
+		<br>
+		<input type="submit" value="Acessar">
+		<br>
+		<a href="cadastrar.php" style="color: white;">Ainda não é inscrito?<b>Cadastrar</b></a>
+	</form>
+</div>
+<?php
 
-        <script src="./src/js/jquery-3.5.1.slim.min.js"></script>
-        <script src="./src/js/bootstrap.bundle.min.js"></script>
+if(isset($_POST['email']))
+{
+	$email = addslashes($_POST['email']);
+	$senha = addslashes($_POST['senha']);
 
-    </body>
+	if(!empty($email) && !empty($senha))
+	{
+		//$u->conectar("login","localhost","root","");
+		$u->open();
+		if($u->msgErro == "")
+		{
+		if($u->logar($email,$senha))
+		{
+			echo("<script>console.log('acessou');</script>");
+			//exit;
+			header('Location: entrou.php');
+		}
+		else
+		{
+			?>
+			<div class="msg-erro">
+			Email e/ou senha estão incorretos!
+			</div>
+			
+			<?php
+		}
+	}
+		else
+		{
+			?>
+			<div class="msg-erro">
+			<?php echo "Erro: ".$u->msgErro; ?>
+			</div>
+			
+			<?php
+			
+		}
+	}else
+	{
+		?>
+			<div class="msg-erro">
+			Preencha todos os campos!
+			</div>
+			
+			<?php
+		
+	}
+}
+
+?>
+</body>
 </html>

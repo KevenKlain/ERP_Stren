@@ -28,7 +28,6 @@
 			font-weight: bold;
 			padding: 10px;
 			text-align: left;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#id_item {
@@ -38,7 +37,6 @@
 		table tbody td {
 			background: white;
 			padding: 15px;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#button {
@@ -104,47 +102,52 @@
 			   font-size: 10px;
 			   
 		}
+		#transaction {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+		}
 	</style>
 	";
 
 	$aux_consulta .= "
 		<script src=https://kit.fontawesome.com/88ebab1f4a.js crossorigin='anonymous'></script>	
-		<div id='fields'>
-			<button
-				id='button'
-				class='btn btn-success' 
-				onclick=\"location.href='?page=saleRegister';\">
-				<i class='fa-solid fa-circle-plus'></i>
-					Novo
-			</button>
-
-			<div class='submit-line'>
-				<form action='?page=saleConsult' method='POST' class='form-inline my-2 my-lg-0'>
-				<input type='text' name='pesquisa' class='form-control' placeholder='Nr. Venda'/>
-				<button class='submit-lente' type='submit'>
-					<i class='fa fa-search'></i>
-				</button>
-			</div>
-		</div>
 		
-		<table id='data-table'>
-			<thead>
-				<tr>
-					<th></th>
-					<th id='id_item'>Nr. Venda</th>
-					<th>Cliente</th>
-					<th>Data da Venda</th>
-					<th>Vr. Venda</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-			<tbody>";
+			<div id='fields'>
+				<button
+					id='button'
+					class='btn btn-success' 
+					onclick=\"location.href='?page=saleRegister';\">
+					<i class='fa-solid fa-circle-plus'></i>
+						Novo
+				</button>
+
+				<div class='submit-line'>
+					<form action='?page=saleConsult' method='POST' class='form-inline my-2 my-lg-0'>
+					<input type='text' name='pesquisa' class='form-control' placeholder='Nr. Venda'/>
+					<button class='submit-lente' type='submit'>
+						<i class='fa fa-search'></i>
+					</button>
+				</div>
+			</div>
+			
+			<section id='transaction'>
+			<table id='data-table'>
+				<thead>
+					<tr>
+						<th></th>
+						<th id='id_item'>Nr. Venda</th>
+						<th>Cliente</th>
+						<th>Data da Venda</th>
+						<th>Situação</th>
+					</tr>
+				</thead>
+				<tbody>";
 	
 	if(@$_REQUEST["pesquisa"]){
 		//$sql = "SELECT * FROM concessionaria  WHERE id_concessionaria = '".$_REQUEST['pesquisa']."'";
 		$sql = "SELECT 
 					id_venda, 
-					id_cliente, 
 					nm_cliente, 
 					vr_total, 
 					lo_status, 
@@ -156,7 +159,6 @@
 	}else{
 		$sql = "SELECT 
 					id_venda, 
-					id_cliente, 
 					nm_cliente, 
 					vr_total, 
 					lo_status, 
@@ -191,22 +193,21 @@
 
 				<td width='400px'>".$row['nm_cliente']."</td>
 
-				<td width='80px' align=center'>".$data."</td>
-				<td width='80px' align=center'>".number_format($row['vr_venda'],2,",",".")."</td>";
-			if($row['lo_status'] == 'Pago'){
-				$aux_consulta .=
-				"<td width='80px' id='status_pago' align=center'>".$row['lo_status']."</td>
-			</tr>";
-			}else{
-				$aux_consulta .=
-				"<td width='80px' id='status_pendente' align=center'>".$row['lo_status']."</td>
-			</tr>";
-			}
+				<td width='80px' align=center'>".$data."</td>";
+				if($row['lo_status'] == 'Pago'){
+					$aux_consulta .=
+					"<td width='80px' id='status_pago' align=center'>".$row['lo_status']."</td>
+				</tr>";
+				}else{
+					$aux_consulta .=
+					"<td width='80px' id='status_pendente' align=center'>".$row['lo_status']."</td>
+				</tr>";
+				}
 		}
 		$aux_consulta .="
-				</tbody>
-			</table>
-			";
+					</tbody>
+				</table>
+			</section>";
 	}
 			
 	$aux_saldos = str_replace(array(chr(10), chr(13)), array('',''),$aux_consulta);

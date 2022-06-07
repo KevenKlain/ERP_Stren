@@ -1,0 +1,83 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+body{
+	background-position: 50% 90%;
+	background-color: #232424;
+}
+
+
+input{
+	display: block;
+	height: 55px;
+	width: 400px;
+	margin: 10px;
+	border-radius: 30px;
+	border:1px solid black;
+	font-size: 16pt;
+	padding: 10px 20px;
+	background-color: #f3f3f3;
+	color: white;
+	outline: none;
+}
+
+div#corpo-form-cad{
+	/*background-color: red;*/
+	width: 420px;
+	margin: 100px auto 0px auto;
+}
+
+div#corpo-form{
+	/*background-color: red;*/
+	width: 420px;
+	margin: 150px auto 0px auto;
+}
+
+
+#teste{
+	background-color: aliceblue;
+
+}
+
+div#corpo-form h1{
+	text-align: center;
+	padding: 20px;
+}
+
+a{
+	color: black;
+	text-decoration: none;
+	text-align: center;
+	display: block; 
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+input[type=submit]{
+	background-color: #19a234;
+	border: none;
+	cursor: pointer;
+
+}
+
+
+div#msg-sucesso{
+	width: 400px;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: rgba(50,205,50,.3);
+	border: 1px solid rgba(34,39,34);
+}
+
+
+div.msg-erro{
+	width: 400px;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: rgba(250, 128, 114,.3);
+	border: 1px solid rgba(165,42,42);
+}

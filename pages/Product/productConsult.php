@@ -28,7 +28,6 @@
 			font-weight: bold;
 			padding: 10px;
 			text-align: left;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#id_item {
@@ -38,7 +37,6 @@
 		table tbody td {
 			background: white;
 			padding: 15px;
-			box-shadow: 10px 0 10px 0px #ccc;
 		}
 
 		#button {
@@ -77,40 +75,46 @@
 		  #message {
 			margin: 0px 100px;
 		  }
+
+		  #transaction {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+	      }
 	</style>
 	";
 
 	$aux_consulta .= "
 		<script src=https://kit.fontawesome.com/88ebab1f4a.js crossorigin='anonymous'></script>	
-		</form>
-		</div>
-		<div id='fields'>
-			<button
-				id='button'
-				class='btn btn-success' 
-				onclick=\"location.href='?page=productRegister';\">
-				<i class='fa-solid fa-circle-plus'></i>
-					Novo
-			</button>
-
-			<div class='submit-line'>
-				<form action='?page=productConsult' method='POST' class='form-inline my-2 my-lg-0'>
-				<input type='number' name='pesquisa' class='form-control' placeholder='Nr. Produto'/>
-				<button class='submit-lente' type='submit'>
-					<i class='fa fa-search'></i>
+		
+			<div id='fields'>
+				<button
+					id='button'
+					class='btn btn-success' 
+					onclick=\"location.href='?page=productRegister';\">
+					<i class='fa-solid fa-circle-plus'></i>
+						Novo
 				</button>
+
+				<div class='submit-line'>
+					<form action='?page=productConsult' method='POST' class='form-inline my-2 my-lg-0'>
+					<input type='number' name='pesquisa' class='form-control' placeholder='Nr. Produto'/>
+					<button class='submit-lente' type='submit'>
+						<i class='fa fa-search'></i>
+					</button>
+				</div>
 			</div>
-		</div>
-		<table id='data-table'>
-			<thead>
-				<tr>
-					<th></th>
-					<th id='id_item'>Nr. Produto</th>
-					<th>Descrição</th>
-					<th>Vr. Produto</th>
-				</tr>
-			</thead>
-			<tbody>";
+			<section id='transaction'>
+			<table id='data-table'>
+				<thead>
+					<tr>
+						<th></th>
+						<th id='id_item'>Nr. Produto</th>
+						<th>Descrição</th>
+						<th>Vr. Produto</th>
+					</tr>
+				</thead>
+				<tbody>";
 	
 	if(@$_REQUEST["pesquisa"]){
 		//$sql = "SELECT * FROM concessionaria  WHERE id_concessionaria = '".$_REQUEST['pesquisa']."'";
@@ -145,24 +149,24 @@
 		
 		while($row = pg_fetch_array($result)){
 			$aux_consulta .= "
-				<tr>
-					<td width='10px' align=center>
-						<i  class='fa-solid fa-pencil'
-							onclick=\"location.href='?page=productEdit&id_produto=".$row['id_produto']."';\"
-						></i>
-					</td> 
+					<tr>
+						<td width='10px' align=center>
+							<i  class='fa-solid fa-pencil'
+								onclick=\"location.href='?page=productEdit&id_produto=".$row['id_produto']."';\"
+							></i>
+						</td> 
 
-					<td width='80px' align=center>".str_pad($row['id_produto'], 6, 0, STR_PAD_LEFT)."</td>
+						<td width='80px' align=center>".str_pad($row['id_produto'], 6, 0, STR_PAD_LEFT)."</td>
 
-					<td width='400px'>".$row['descricao']."</td>
+						<td width='400px'>".$row['descricao']."</td>
 
-					<td width='80px' align=center'>R$ ".number_format($row['vr_venda'],2,",",".")."</td>
-				</tr>
-			";
+						<td width='80px' align=center'>R$ ".number_format($row['vr_venda'],2,",",".")."</td>
+					</tr>";
 		}
 		$aux_consulta .="
-				</tbody>
-			</table>";
+					</tbody>
+				</table>
+			</section>";
 	}
 			
 	$aux_saldos = str_replace(array(chr(10), chr(13)), array('',''),$aux_consulta);
